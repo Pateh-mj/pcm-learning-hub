@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCM | Premiere Learning Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        /* Keeping glass only for small UI elements, main content is solid for readability */
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        /* Offset for fixed navbar */
+        section { scroll-margin-top: 90px; }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-scroll { display: flex; width: max-content; animation: scroll 50s linear infinite; }
+        .animate-scroll:hover { animation-play-state: paused; }
+
+        #about-popup::-webkit-scrollbar { width: 8px; }
+        #about-popup::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 4px; }
+
+        /* Mobile Menu Animation */
+        #mobile-menu { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
+        #mobile-menu.active { transform: translateX(0); }
+
+        /* Back to Top Button */
+        #back-to-top { opacity: 0; visibility: hidden; transition: all 0.3s; pointer-events: none; }
+        #back-to-top.show { opacity: 1; visibility: visible; pointer-events: auto; }
+    </style>
+</head>
+<body class="bg-[#0f172a] text-slate-200 overflow-x-hidden">
+
+    <nav class="fixed w-full z-[100] transition-all duration-300 py-4" id="main-nav">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2">
+                <img src="pcm.png" alt="PCM Logo" class="h-20 w-auto object-contain">
+            </a>
+            
+            <ul class="hidden md:flex items-center space-x-10 text-sm font-semibold tracking-wide">
+                <li><a href="#home" class="hover:text-indigo-400 transition">HOME</a></li>
+                <li><a href="#paths" class="hover:text-indigo-400 transition">COURSES</a></li>
+                <li><a href="#icu-ict-hub" class="hover:text-indigo-400 transition">ICU ICT HUB</a></li>
+                <li><button class="trigger-signup bg-indigo-600 text-white px-5 py-2.5 rounded-full hover:bg-indigo-500 transition">GET STARTED</button></li>
+            </ul>
+
+            <button id="menu-toggle" class="md:hidden text-2xl text-white">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 z-[110] bg-[#0f172a] flex flex-col p-10 md:hidden">
+        <button id="menu-close" class="self-end text-3xl mb-10"><i class="fa-solid fa-xmark"></i></button>
+        <ul class="space-y-8 text-3xl font-bold">
+            <li><a href="#home" class="mobile-link hover:text-indigo-400 transition">Home</a></li>
+            <li><a href="#paths" class="mobile-link hover:text-indigo-400 transition">Courses</a></li>
+            <li><a href="#icu-ict-hub" class="mobile-link hover:text-indigo-400 transition">ICU ICT HUB</a></li>
+            <li class="pt-6"><button class="trigger-signup w-full bg-indigo-600 py-5 rounded-2xl text-lg text-white">Get Started</button></li>
+        </ul>
+    </div>
+
+    <button id="back-to-top" class="fixed bottom-8 right-8 z-[90] w-12 h-12 bg-indigo-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-indigo-500 transition-all active:scale-90">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20">
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-indigo-600/20 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px]"></div>
+        </div>
+        <div class="relative z-10 text-center px-6 max-w-4xl reveal active">
+            <span class="text-indigo-400 font-bold tracking-[0.2em] text-sm uppercase mb-4 block">Future-Ready Leadership</span>
+            <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+                Woodlands Conference <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Public Campus Ministry</span>
+            </h1>
+            <p class="text-slate-400 text-lg md:text-xl mb-10 max-w-2xl mx-auto italic">"Follow Jesus, Embrace His Mission, Change the World"</p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                <button class="trigger-signup w-full md:w-auto px-10 py-4 bg-white text-slate-950 font-bold rounded-xl hover:scale-105 transition">Start Learning Now</button>
+                <a href="#paths" class="w-full md:w-auto px-10 py-4 bg-slate-900 border border-slate-700 font-bold rounded-xl hover:bg-slate-800 transition text-center">View Courses</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-6 -mt-12 relative z-20 reveal">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="glass p-6 rounded-2xl text-center"><h3 class="text-2xl font-black text-white">1,450+</h3><p class="text-slate-500 text-xs font-bold uppercase mt-1">Students</p></div>
+            <div class="glass p-6 rounded-2xl text-center"><h3 class="text-2xl font-black text-white">8</h3><p class="text-slate-500 text-xs font-bold uppercase mt-1">Tracks</p></div>
+            <div class="glass p-6 rounded-2xl text-center"><h3 class="text-2xl font-black text-white">24/7</h3><p class="text-slate-500 text-xs font-bold uppercase mt-1">Access</p></div>
+            <div class="glass p-6 rounded-2xl text-center"><h3 class="text-2xl font-black text-white">100%</h3><p class="text-slate-500 text-xs font-bold uppercase mt-1">Digital</p></div>
+        </div>
+    </div>
+
+    <section id="paths" class="py-32 px-6 max-w-7xl mx-auto">
+        <div class="mb-16 reveal">
+            <h2 class="text-4xl font-bold text-white mb-4">Leadership Tracks</h2>
+            <div class="h-1.5 w-20 bg-indigo-600 rounded-full"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass p-8 rounded-[2rem] group reveal">
+                <div class="w-12 h-12 bg-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center mb-6"><i class="fa-solid fa-medal text-xl"></i></div>
+                <h3 class="text-xl font-bold text-white mb-2">Master Guide</h3>
+                <p class="text-slate-400 text-sm mb-6">The peak of youth leadership training. Start your journey toward the Master Guide investiture.</p>
+                <button class="trigger-signup text-indigo-400 font-bold text-sm flex items-center gap-2 group-hover:gap-4 transition-all">Enroll Now <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            <div class="glass p-8 rounded-[2rem] group reveal">
+                <div class="w-12 h-12 bg-purple-500/20 text-purple-400 rounded-xl flex items-center justify-center mb-6"><i class="fa-solid fa-hand-holding-heart text-xl"></i></div>
+                <h3 class="text-xl font-bold text-white mb-2">PCM Competency</h3>
+                <p class="text-slate-400 text-sm mb-6">Equipping public campus students to be effective witnesses and leaders in their universities.</p>
+                <button class="trigger-signup text-purple-400 font-bold text-sm flex items-center gap-2 group-hover:gap-4 transition-all">Enroll Now <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+            <div class="glass p-8 rounded-[2rem] group reveal">
+                <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center mb-6"><i class="fa-solid fa-compass text-xl"></i></div>
+                <h3 class="text-xl font-bold text-white mb-2">Senior Youth Leadership</h3>
+                <p class="text-slate-400 text-sm mb-6">Advanced management for club directors and staff members. Organize your club digitally.</p>
+                <button class="trigger-signup text-emerald-400 font-bold text-sm flex items-center gap-2 group-hover:gap-4 transition-all">Enroll Now <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass p-8 md:p-16 rounded-[3rem] overflow-hidden relative">
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px]"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+                    <div class="reveal">
+                        <div class="flex items-center gap-4 mb-6"><span class="text-indigo-400 font-bold tracking-widest uppercase text-sm">Our Mission</span></div>
+                        <h2 class="text-4xl font-black text-white mb-6">Building Leaders with <br><span class="text-indigo-500">Eternal Impact.</span></h2>
+                        <p class="text-slate-400 leading-relaxed mb-6">The Public Campus Ministries (PCM) is dedicated to supporting Seventh-day Adventist students and faculty on non-Adventist campuses. Our platform serves as a central hub for training and resource sharing.</p>
+                        <p class="text-slate-400 leading-relaxed mb-8">Whether you are a Master Guide candidate or a student leader, our goal is to equip you with tools to maintain your faith and share it effectively.</p>
+                        <div class="grid grid-cols-2 gap-6 border-t border-slate-800 pt-8">
+                            <div><h4 class="text-white font-bold">Global Reach</h4><p class="text-slate-500 text-xs mt-1">Connecting students across various public institutions worldwide.</p></div>
+                            <div><h4 class="text-white font-bold">Holistic Training</h4><p class="text-slate-500 text-xs mt-1">Focusing on spiritual, intellectual, and social leadership.</p></div>
+                        </div>
+                    </div>
+                    <div class="relative reveal">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-4">
+                                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=400" class="rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition" alt="Students">
+                                <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=400" class="rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition" alt="Study Group">
+                            </div>
+                            <div class="pt-8">
+                                <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=400" class="rounded-3xl shadow-2xl h-full object-cover grayscale hover:grayscale-0 transition" alt="Leadership">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="icu-ict-hub" class="py-24 px-6 bg-slate-900/50">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="reveal">
+                <h3 class="text-indigo-400 font-bold tracking-[0.3em] uppercase text-xs mb-4">The Development Team</h3>
+                <h2 class="text-4xl font-black text-white mb-6">ICU ICT HUB</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto mb-10">The technical engine powering PCM's digital mission. We turn vision into functional, future-ready software.</p>
+                <button id="open-about-popup" class="px-10 py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-500 transition shadow-lg shadow-indigo-600/20">
+                    Who is behind this?
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div id="about-popup" class="fixed inset-0 z-[200] hidden overflow-y-auto">
+        <div class="fixed inset-0 bg-[#0f172a] z-0"></div>
+        
+        <div class="relative z-10 min-h-screen flex flex-col items-center py-20 px-6">
+            <div class="max-w-4xl w-full">
+                <button id="close-about-popup" class="fixed top-8 right-8 text-slate-400 hover:text-white text-3xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-black text-white mb-4">Meet ICU ICT HUB</h2>
+                    <p class="text-indigo-400 font-bold tracking-widest uppercase text-sm">Innovators for Christ</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                    <div class="bg-slate-800/80 p-10 rounded-[2rem] border border-slate-700">
+                        <h4 class="text-2xl font-bold text-white mb-4">Our Role</h4>
+                        <p class="text-slate-300 leading-relaxed mb-4">Based at the Information and Communications University (ICU), the ICT Hub is a dedicated team of student developers and mentors.</p>
+                        <p class="text-slate-300 leading-relaxed">We specialize in creating tools that empower ministry leaders to spend less time on paperwork and more time on people.</p>
+                    </div>
+
+                    <div class="bg-indigo-950/50 p-10 rounded-[2rem] border border-indigo-500/30">
+                        <h4 class="text-2xl font-bold text-white mb-6">Contact the Hub</h4>
+                        <form onsubmit="event.preventDefault(); alert('Message Delivered!');" class="space-y-4">
+                            <input type="text" placeholder="Full Name" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-indigo-500 outline-none">
+                            <input type="email" placeholder="Email" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-indigo-500 outline-none">
+                            <textarea placeholder="How can we help?" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-indigo-500 outline-none"></textarea>
+                            <button class="w-full bg-indigo-600 py-4 rounded-xl font-bold text-white hover:bg-indigo-500 transition">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <h4 class="text-white font-bold text-xl mb-8 uppercase tracking-widest">The Core Team</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div><div class="w-20 h-20 bg-slate-800 rounded-full mx-auto mb-3"></div><p class="text-white font-bold text-sm">Dev Lead</p></div>
+                        <div><div class="w-20 h-20 bg-slate-800 rounded-full mx-auto mb-3"></div><p class="text-white font-bold text-sm">UI Designer</p></div>
+                        <div><div class="w-20 h-20 bg-slate-800 rounded-full mx-auto mb-3"></div><p class="text-white font-bold text-sm">QA Engineer</p></div>
+                        <div><div class="w-20 h-20 bg-slate-800 rounded-full mx-auto mb-3"></div><p class="text-white font-bold text-sm">Project Mgr</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="py-20 border-t border-slate-900 overflow-hidden">
+        <div class="flex items-center gap-12 animate-scroll whitespace-nowrap px-6">
+            
+                <div class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-500 shrink-0">
+                    <i class="fa-solid fa-university text-2xl text-indigo-400"></i>
+                    <span class="text-xl font-bold tracking-tighter text-white">Chau PCM</span>
+                </div>
+                
+                <div class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-500 shrink-0">
+                    <i class="fa-solid fa-graduation-cap text-2xl text-indigo-400"></i>
+                    <span class="text-xl font-bold tracking-tighter text-white">LMMU PCM</span>
+                </div>
+        
+                <div class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-500 shrink-0">
+                    <i class="fa-solid fa-book-open text-2xl text-indigo-400"></i>
+                    <span class="text-xl font-bold tracking-tighter text-white">ICU PCM</span>
+                </div>
+        
+                <div class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-500 shrink-0">
+                    <i class="fa-solid fa-school text-2xl text-indigo-400"></i>
+                    <span class="text-xl font-bold tracking-tighter text-white">GRU PCM</span>
+                </div>
+        
+                <div class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-500 shrink-0">
+                    <i class="fa-solid fa-building-columns text-2xl text-indigo-400"></i>
+                    <span class="text-xl font-bold tracking-tighter text-white">Palabana PCM</span>
+                </div>
+        
+                <div class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-500 shrink-0">
+                    <i class="fa-solid fa-university text-2xl text-indigo-400"></i>
+                    <span class="text-xl font-bold tracking-tighter text-white">NRDC PCM</span>
+                </div>
+        
+                <div class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-500 shrink-0">
+                    <i class="fa-solid fa-university text-2xl text-indigo-400"></i>
+                    <span class="text-xl font-bold tracking-tighter text-white">Kafue PCM</span>
+                </div>
+        
+                <div class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-500 shrink-0">
+                    <i class="fa-solid fa-graduation-cap text-2xl text-indigo-400"></i>
+                    <span class="text-xl font-bold tracking-tighter text-white">Woodlands PCM</span>
+                </div>
+        
+                <div class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-500 shrink-0">
+                    <i class="fa-solid fa-book-open text-2xl text-indigo-400"></i>
+                    <span class="text-xl font-bold tracking-tighter text-white">Manica PCM</span>
+                </div>
+        
+                <div class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-500 shrink-0">
+                    <i class="fa-solid fa-school text-2xl text-indigo-400"></i>
+                    <span class="text-xl font-bold tracking-tighter text-white">St Lukes PCM</span>
+                </div>
+        
+                <div class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-500 shrink-0">
+                    <i class="fa-solid fa-building-columns text-2xl text-indigo-400"></i>
+                    <span class="text-xl font-bold tracking-tighter text-white">LBTC PCM</span>
+                </div>
+        
+                <div class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-500 shrink-0">
+                    <i class="fa-solid fa-university text-2xl text-indigo-400"></i>
+                    <span class="text-xl font-bold tracking-tighter text-white">Unilus Silverest PCM</span>
+                </div>
+        
+                <div class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-500 shrink-0">
+                    <i class="fa-solid fa-university text-2xl text-indigo-400"></i>
+                    <span class="text-xl font-bold tracking-tighter text-white">Unilus Leopards hill PCM</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-slate-900 text-center text-slate-500 text-xs tracking-widest uppercase">
+        <p>&copy; 2026 PCM Learning. Driven by ICU ICT HUB.</p>
+    </footer>
+
+    <div id="signup-modal" class="hidden fixed inset-0 z-[150] flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-md" id="modal-backdrop"></div>
+        <div class="glass relative w-full max-w-md p-8 rounded-3xl shadow-2xl scale-95 transition-all" id="modal-content">
+            <button id="close-modal" class="absolute top-6 right-6 text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <div class="text-center mb-8"><h2 class="text-3xl font-bold text-white">Join PCM</h2></div>
+            <form onsubmit="event.preventDefault(); alert('Opening Sign Up...');" class="space-y-4">
+                <input type="email" required placeholder="Email Address" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white outline-none">
+                <button type="submit" class="w-full bg-indigo-600 py-4 rounded-xl font-bold text-white">Get Started</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // DOM Selection
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const backToTop = document.getElementById('back-to-top');
+        const nav = document.getElementById('main-nav');
+        
+        // Mobile Menu Logic
+        const toggleMenu = () => mobileMenu.classList.toggle('active');
+        menuToggle.onclick = toggleMenu;
+        menuClose.onclick = toggleMenu;
+
+        // Fix: Mobile links close menu and scroll
+        mobileLinks.forEach(link => {
+            link.onclick = (e) => {
+                toggleMenu();
+                const targetId = link.getAttribute('href');
+                const targetSec = document.querySelector(targetId);
+                if(targetSec) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: targetSec.offsetTop - 90,
+                        behavior: 'smooth'
+                    });
+                }
+            };
+        });
+
+        // Modal Logic
+        const modal = document.getElementById('signup-modal');
+        const modalContent = document.getElementById('modal-content');
+        const triggers = document.querySelectorAll('.trigger-signup');
+
+        triggers.forEach(btn => { 
+            btn.onclick = () => { 
+                if(mobileMenu.classList.contains('active')) toggleMenu();
+                modal.classList.remove('hidden'); 
+                setTimeout(() => modalContent.classList.remove('scale-95'), 10); 
+            } 
+        });
+        document.getElementById('close-modal').onclick = () => { modalContent.classList.add('scale-95'); setTimeout(() => modal.classList.add('hidden'), 200); };
+
+        // Popups
+        const aboutPopup = document.getElementById('about-popup');
+        document.getElementById('open-about-popup').onclick = () => { aboutPopup.classList.remove('hidden'); document.body.style.overflow = 'hidden'; };
+        document.getElementById('close-about-popup').onclick = () => { aboutPopup.classList.add('hidden'); document.body.style.overflow = 'auto'; };
+
+        // Scroll Logic
+        window.onscroll = () => {
+            // Navbar
+            if(window.scrollY > 50) nav.classList.add('bg-[#0f172a]/95', 'py-2', 'border-b', 'border-slate-800');
+            else nav.classList.remove('bg-[#0f172a]/95', 'py-2', 'border-b', 'border-slate-800');
+            
+            // Back to Top
+            if(window.scrollY > 400) backToTop.classList.add('show');
+            else backToTop.classList.remove('show');
+        };
+
+        backToTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
